@@ -8,7 +8,7 @@ $app->config('debug', true); //detalha os erros que acontecem
 
 $app->get('/', function() { //rota principal
     
-	$sql = new MyProject\db\Sql();
+	$sql = new Principal\DB\Sql();
 
 	$result = $sql->select("SELECT * FROM tb_users");
 
