@@ -16,7 +16,7 @@ class Page{
 
 		$config = array(
 					"tpl_dir"       => $_SERVER["DOCUMENT_ROOT"]."/views/",//caminho do template
-					"cache_dir"     => $_SERVER["DOCUMENT_ROOT"]."/views-cache",
+					"cache_dir"     => $_SERVER["DOCUMENT_ROOT"]."/views-cache/",
 					"debug"         => false
 				   );
 
