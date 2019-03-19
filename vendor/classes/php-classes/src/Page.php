@@ -2,10 +2,11 @@
 
 namespace Principal;
 
-use Rain\Tpl;
+use Rain\Tpl; 
 
 class Page{
-
+   
+   //os atributos estão privados para que só essa classe tenha acesso
 	private $tpl;
 	private $options = [];
 	private $defaults =  ["data"=>[]];
