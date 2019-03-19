@@ -11,12 +11,12 @@ class Page{
 	private $options = [];
 	private $defaults =  ["data"=>[]];
 
-	public function __construct($opts = array()){
+	public function __construct($opts = array(), $tpl_dir = "/views/"){
 
 		$this->options = array_merge($this->defaults, $opts); //para o opts sobrescrever o default
 
 		$config = array(
-					"tpl_dir"       => $_SERVER["DOCUMENT_ROOT"]."/views/",//caminho do template
+					"tpl_dir"       => $_SERVER["DOCUMENT_ROOT"].$tpl_dir,//caminho do template
 					"cache_dir"     => $_SERVER["DOCUMENT_ROOT"]."/views-cache/",
 					"debug"         => false
 				   );

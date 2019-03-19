@@ -4,6 +4,7 @@ require_once("vendor/autoload.php"); //require autoload composer, tras as depend
 
 use \Slim\Slim;
 use \Principal\Page;
+use \Principal\PageAdmin;
 
 $app = new Slim();//instancia do slim framework
 
@@ -25,6 +26,13 @@ $app->get('/', function() { //rota principal
 
 	echo json_encode($result);
     */
+});
+
+$app->get('/admin', function(){//rota do amin
+
+	$page = new PageAdmin(); //instancia do pageadmin
+
+	$page->setTpl("index");//direcionando para o index do admin
 });
 
 $app->run(); //executa tudo
