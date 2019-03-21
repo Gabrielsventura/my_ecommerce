@@ -9,7 +9,12 @@ class Page{
    //os atributos estão privados para que só essa classe tenha acesso
 	private $tpl;
 	private $options = [];
-	private $defaults =  ["data"=>[]];
+	private $defaults =  [
+        //header e footer "true" por padrao
+		"header"=>true,
+		"footer"=>true,
+
+		"data"=>[]];
 
 	public function __construct($opts = array(), $tpl_dir = "/views/"){
 
@@ -27,8 +32,10 @@ class Page{
 
 	$this->setData($this->options["data"]);
 
-	 $this->tpl->draw("header"); //desenha o template na tela
+	 if ($this->options["header"] === true) {//se a opçao for header, carregar headre
+	 	$this->tpl->draw("header"); //desenha o template na tela
 	
+	 }
 
 	}
 
@@ -54,7 +61,10 @@ class Page{
 
 	public function __destruct(){
 
-         $this->tpl->draw("footer");//desneha o footer
+        if ($this->options["footer"] === true) {//se a opçao for footer, carrega footer
+
+         	$this->tpl->draw("footer");//desneha o footer
+         } 
 
 
 	}
