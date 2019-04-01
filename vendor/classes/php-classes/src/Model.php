@@ -14,7 +14,7 @@ class Model { //para criar os geters e seters
 
 		switch ($method) {
 			case 'get':
-			     return $this->values[$fieldname];
+			     return $this->values[$fieldName];
 				# code...
 				break;
 			case "set":
@@ -27,7 +27,7 @@ class Model { //para criar os geters e seters
 
 		foreach ($data as $key => $value) {
 			
-			$this->{"set".$key}($value);//jeito dinamico, concatena set com com as chaves do banco
+			$this->{"set".$key}($value);//jeito dinamico, concatena set com com as chaves e valores do bancodo banco
 		}
 	}
 
@@ -35,6 +35,8 @@ class Model { //para criar os geters e seters
 
 		return $this->values;//retorna os valores do usuario
 	}
+
+	
 }
 
 
