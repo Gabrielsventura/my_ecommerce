@@ -8,6 +8,7 @@ use \Slim\Slim;
 use \Principal\Page;
 use \Principal\PageAdmin;
 use \Principal\Model\User;
+use \Principal\Model\Category;
 
 $app = new Slim();//instancia do slim framework
 
@@ -241,6 +242,109 @@ $app->get("/admin/forgot/reset", function(){//rota para receber o código
 
 
 });
+
+
+//----CATEGORIAS-----
+
+
+
+
+//-----READ----
+
+$app->get("/admin/categories", function(){
+
+	User::verifyLogin();
+
+	$categories = Category::listAll();//metodo lista categorias
+
+	$page = new PageAdmin();
+
+	$page->setTpl("categories", [//pega a chaves do banco
+      'categories'=>$categories
+
+	]);
+});
+
+
+
+//----CREATE-----
+
+$app->get("/admin/categories/create", function(){
+
+	User::verifyLogin();
+
+	$page = new PageAdmin();
+
+	$page->setTpl("categories-create");//pagina para criar categorias
+});
+
+
+$app->post("/admin/categories/create", function(){
+
+	User::verifyLogin();
+
+	$category = new Category();
+
+	$category->setData($_POST);
+
+	$category->save();
+
+	header('Location: /admin/categories');//pagina que lista categorias
+	exit;
+});
+
+$app->get("/admin/categories/:idcategory/delete", function($idcategory){
+
+	User::verifyLogin();
+
+	$category = new Category();
+
+	$category->get((int)$idcategory);//pega o id
+
+	$category->delete();//deleta
+
+	header('Location: /admin/categories');//volta para a lista
+	exit;
+});
+
+
+$app->get("/admin/categories/:idcategory", function($idcategory){
+
+	User::verifyLogin();
+
+	$category = new Category();
+
+	$category->get((int)$idcategory);//casting converte tudo para numerico
+
+	$page = new PageAdmin();
+
+	$page->setTpl("categories-update", [
+		'category'=>$category->getValues()
+
+	]);
+});
+
+$app->post("/admin/categories/:idcategory", function($idcategory){
+
+	User::verifyLogin();
+
+	$category = new Category();
+
+	$category->get((int)$idcategory);//casting converte tudo para numerico
+
+	$category->setData($_POST);
+
+	$category->save();
+
+	header('Location: /admin/categories');
+	exit;
+	
+
+});
+
+
+
+
 
 
 

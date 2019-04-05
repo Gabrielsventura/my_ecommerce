@@ -14,7 +14,7 @@ class Model { //para criar os geters e seters
 
 		switch ($method) {
 			case 'get':
-			     return $this->values[$fieldName];
+			     return (isset($this->values[$fieldName])) ? $this->values[$fieldName] : NULL;//se os valores ja foram definidos retorna, senao retorna null
 				# code...
 				break;
 			case "set":
