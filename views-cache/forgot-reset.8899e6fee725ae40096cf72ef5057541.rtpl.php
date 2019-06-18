@@ -30,7 +30,7 @@
   </div>
   
    <div class="help-block text-center">
-     Olá <?php echo htmlspecialchars( $name, ENT_COMPAT, 'UTF-8', FALSE ); ?>, digite uma nova senha:
+     Olá <?php echo htmlspecialchars( $name, ENT_COMPAT, 'UTF-8', FALSE ); ?>, digite uma nova senha:<!-- o <?php $; ?> esta vindo do banco -->
     </div>
 
   <!-- START LOCK SCREEN ITEM -->

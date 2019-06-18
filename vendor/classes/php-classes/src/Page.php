@@ -32,7 +32,7 @@ class Page{
 
 	$this->setData($this->options["data"]);
 
-	 if ($this->options["header"] === true) {//se a opçao for header, carregar headre
+	 if ($this->options["header"] === true) {//se a opçao for header, carregar header
 	 	$this->tpl->draw("header"); //desenha o template na tela
 	
 	 }

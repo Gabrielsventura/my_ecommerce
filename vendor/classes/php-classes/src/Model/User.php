@@ -10,7 +10,7 @@ use \Principal\Mailer;
 class User extends Model {
 
 	const SESSION = "User";
-	const SECRET = "StoreVentura_secret";
+	const SECRET = "StoreVentura_secret";//chave para criptografar e descriptografar
 
 	public static function login($login, $password){
 
@@ -28,8 +28,8 @@ class User extends Model {
 
 		$data = $results[0];//retorna o primeiro registro, posiçao 0
 
-		if (password_verify($password, $data["despassword"]) === true){//verifica se a  senha existe, recebe a varivel password da funcao login e o despassword do banco
-			$user = new User();//se existir instancia a classe
+		if (password_verify($password, $data["despassword"]) === true){//verifica se a  senha existe, recebe a varivel password da funcao  e o despassword do banco
+			$user = new User();//se existir, instancia a classe
 
 			$user->setData($data);//pega todos os campos da tebla users
 
@@ -82,7 +82,8 @@ class User extends Model {
 	$result = $sql->select("CALL sp_users_save(:desperson, :deslogin, :despassword, :desemail, :nrphone, :inadmin)", array(//passa os dados que estao no atributo, chave=>this->atributo
 		":desperson"=>$this->getdesperson(),
 		":deslogin"=>$this->getdeslogin(),
-		":despassword"=>$this->getdespassword(),
+		//código para criptograar senha password_hash();
+		":despassword"=> password_hash($this->getdespassword(), PASSWORD_DEFAULT, ["cost" => 12]),
 		":desemail"=>$this->getdesemail(),
 		":nrphone"=>$this->getnrphone(),
 		":inadmin"=>$this->getinadmin()
@@ -157,7 +158,7 @@ class User extends Model {
 			# code...
 		}else{
 
-			$data = $results[0];
+			$data = $results[0];//pega o resultado no index 0
 
 			$results2 = $sql->select("CALL sp_userspasswordsrecoveries_create(:iduser, :desip)", array(
 				":iduser"=>$data["iduser"],//pega os dados na posição do results 
@@ -187,18 +188,19 @@ class User extends Model {
 					$link = "http://www.gabriels.ventura-ecommerce.com.br/forgot/reset?code=$code";
 				}
 
+                //endereco, nome do remetente, assunto e nome da pagina
 				$mailer = new Mailer($data['desemail'], $data['desperson'], "Redefinir senha na Ventura Store", "forgot", array(
 					"name"=>$data['desperson'], 
 					"link"=>$link  ));
 
 				$mailer->send();
-				return $link;
+				return $data;
 			}
 		}
 
 	}
 
-	public static function validForgotDecrypt($result){
+	/*public static function validForgotDecrypt($result){//para descriptografar a o código de recuperacao de senha
 
 		$result = base64_decode($result);
 		$code = mb_substr($result, openssl_cipher_iv_length('aes-256-cbc'), null, '8bit');
@@ -208,6 +210,8 @@ class User extends Model {
 		$sql = new Sql();
 		
 		$results = $sql->select("
+
+			
 
 			SELECT * 
 			FROM tb_userspasswordsrecoveries a
@@ -237,7 +241,7 @@ class User extends Model {
 		{
 			return $results[0];
 		}
-	}
+	}*/
 
  }
 

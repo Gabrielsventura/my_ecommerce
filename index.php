@@ -184,7 +184,7 @@ $app->get("/admin/forgot", function(){//rota para recuperar a senha
 
     $page = new PageAdmin([
       
-      //desabilita o header e o footer porque na pgina de recuperação de senha e diferente
+      //desabilita o header e o footer porque na pgina de recuperação de senha e diferente, não tem a interface padrão, a pessoas ainda nao estara autenticada
       "header"=>false,
       "footer"=>false
 
@@ -198,7 +198,6 @@ $app->get("/admin/forgot", function(){//rota para recuperar a senha
 $app->post("/admin/forgot", function(){//rota para envio de email
 
 	
-    
     $user = User::getForgot($_POST["email"]);//email que o usuario enviou via post
 
     header("Location: /admin/forgot/sent");//pagina de confirmação de envio de email
@@ -224,7 +223,7 @@ $app->get("/admin/forgot/sent", function(){
 
 $app->get("/admin/forgot/reset", function(){//rota para receber o código
      
-    $user = User::validForgotDecrypt($_GET["code"]); 
+    //$user = User::validForgotDecrypt($_GET["code"]); 
 
      $page = new PageAdmin([
       
@@ -234,11 +233,7 @@ $app->get("/admin/forgot/reset", function(){//rota para receber o código
 
      ]);
 
-      $page->setTpl("forgot-reset", array(
-      		"name"=>$user["desperson"],
-      		"code"=>$_GET["code"]
-  
-      ));
+      $page->setTpl("forgot-reset");
 
 
 });
