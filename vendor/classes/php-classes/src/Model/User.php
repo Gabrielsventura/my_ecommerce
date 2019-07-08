@@ -11,6 +11,7 @@ class User extends Model {
 
 	const SESSION = "User";
 	const SECRET = "StoreVentura_secret";//chave para criptografar e descriptografar
+	const SECRET_IV = "StoreVentura_secret4";
 
 	public static function login($login, $password){
 
@@ -200,13 +201,13 @@ class User extends Model {
 
 	}
 
-	/*public static function validForgotDecrypt($result){//para descriptografar a o código de recuperacao de senha
+	public static function validForgotDecrypt($result){//para descriptografar a o código de recuperacao de senha
 
 		$result = base64_decode($result);
-		$code = mb_substr($result, openssl_cipher_iv_length('aes-256-cbc'), null, '8bit');
-		$iv = mb_substr($result, 0, openssl_cipher_iv_length('aes-256-cbc'), '8bit');;
-		$idrecovery = openssl_decrypt($code, 'aes-256-cbc', User::SECRET, 0, $iv);
 		
+		$idrecovery = openssl_decrypt($result, 'AES-128-CBC', pack("a16", User::SECRET), 0, pack("a16", User::SECRET_IV));
+		
+
 		$sql = new Sql();
 		
 		$results = $sql->select("
@@ -241,7 +242,7 @@ class User extends Model {
 		{
 			return $results[0];
 		}
-	}*/
+	}
 
  }
 

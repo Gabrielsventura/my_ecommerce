@@ -7,7 +7,7 @@ use Rain\Tpl;
 class Mailer {
 
 	const USERNAME = "gabrielsventura1995@gmail.com";//para o email do remetentes ser sempre o mesmo
-	const PASSWORD = "sventura10";
+	const PASSWORD = "mysenhaissecret2";
 	const NAME_FROM = "Ventura Store";
 
 	private $mail;
