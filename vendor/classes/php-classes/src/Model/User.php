@@ -177,7 +177,7 @@ class User extends Model {
 
          		//para criptografar o codigo
 				$iv = random_bytes(openssl_cipher_iv_length('aes-256-cbc'));
-				$code = openssl_encrypt($dataRecovery['idrecovery'], 'aes-256-cbc', User::SECRET, 0 , $iv);
+				$code = base64_encode(openssl_encrypt($dataRecovery['idrecovery'], 'AES-128-CBC', pack("a16", User::SECRET),  0, pack("a16", User::SECRET_IV)));
 				$result = base64_encode($iv.$code);
 				if ($inadmin === true) {
 
@@ -231,7 +231,7 @@ class User extends Model {
 
 		));
 
-		var_dump($results);
+		
 
 		if (count($results) === 0) {//se nao encontrou nada
 
@@ -242,6 +242,25 @@ class User extends Model {
 		{
 			return $results[0];
 		}
+	}
+    
+    //metodo que diz pro banco que um determinado processo de recuperação ja foi usado
+	public static function setForgotUsed($idrecovery){
+
+		$sql = new Sql();
+
+		$sql->query("UPDATE tb_userspasswordsrecoveries SET dtrecovery = NOW() WHERE idrecovery = :idrecovery", array(":idrecovery"=>$idrecovery));
+	}
+
+	public function setPassword($password){
+
+		$sql = new sql();
+
+		$sql->query("UPDATE tb_users SET despassword = :password WHERE iduser = :iduser", array(
+            ":password"=>$password,
+            ":iduser"=>$this->getiduser()
+
+		));
 	}
 
  }
