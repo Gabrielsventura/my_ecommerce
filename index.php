@@ -223,7 +223,7 @@ $app->get("/admin/forgot/sent", function(){
 
 $app->get("/admin/forgot/reset", function(){//rota para receber o código
      
-    $user = User::validForgotDecrypt($_GET["code"]); 
+    $user = User::validForgotDecrypt($_GET["code"]);
 
      $page = new PageAdmin([
       
@@ -234,14 +234,15 @@ $app->get("/admin/forgot/reset", function(){//rota para receber o código
      ]);
 
       $page->setTpl("forgot-reset", array(
-         "name"=>$user["desperson"],
-         "code"=>$_GET["code"]
-      ));
+		"name"=>$user["desperson"],
+		"code"=>$_GET["code"]
+
+	));
 
 
 });
 
-$app->post("/admin/forgot/reset", function(){
+/*$app->post("/admin/forgot/reset", function(){
 
 	$forgot = User::validForgotDecrypt($_POST["code"]);
 
@@ -262,7 +263,7 @@ $app->post("/admin/forgot/reset", function(){
      ]);
 
       $page->setTpl("forgot-reset-sucess");
-});
+});*/
 
 
 //----CATEGORIAS-----
