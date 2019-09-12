@@ -242,11 +242,11 @@ $app->get("/admin/forgot/reset", function(){//rota para receber o código
 
 });
 
-/*$app->post("/admin/forgot/reset", function(){
+$app->post("/admin/forgot/reset", function(){
 
 	$forgot = User::validForgotDecrypt($_POST["code"]);
 
-	User::setForgotUsed($user["idrecovery"]);
+	User::setForgotUsed($forgot["idrecovery"]);
 
 	$user = new User();
 
@@ -263,7 +263,7 @@ $app->get("/admin/forgot/reset", function(){//rota para receber o código
      ]);
 
       $page->setTpl("forgot-reset-sucess");
-});*/
+});
 
 
 //----CATEGORIAS-----

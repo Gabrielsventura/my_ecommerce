@@ -162,7 +162,7 @@ class User extends Model {
 			
 			", array(":idrecovery"=>$idrecovery
 		));
-		var_dump($results);
+		
 		
 		if (count($results) === 0) {//se nao encontrou nada
 			throw new \Exception("Não foi possível recuperar senha");

@@ -30,7 +30,7 @@
   </div>
   
    <div class="help-block text-center">
-     Olá <?php echo htmlspecialchars( $name, ENT_COMPAT, 'UTF-8', FALSE ); ?>, digite uma nova senha:<!-- o <?php $; ?> esta vindo do banco -->
+    <h3> Olá <?php echo htmlspecialchars( $name, ENT_COMPAT, 'UTF-8', FALSE ); ?>, digite uma nova senha:</h3>
     </div>
 
   <!-- START LOCK SCREEN ITEM -->
@@ -52,7 +52,7 @@
   <!-- /.lockscreen-item -->
   
   <div class="lockscreen-footer text-center">
-    Copyright &copy; 2014-2016 <b><a href="http://almsaeedstudio.com" class="text-black">Almsaeed Studio</a></b><br>
+    Copyright &copy; 2019 <b><a href="http://almsaeedstudio.com" class="text-black">Almsaeed Studio</a></b><br>
     All rights reserved
   </div>
 </div>
