@@ -141,7 +141,7 @@ class User extends Model {
 			}
 		}
 	}
-	public static function validForgotDecrypt($code){//para descriptografar a o código de recuperacao de senha
+	public static function validForgotDecrypt($code){
 		
 		$idrecovery = mcrypt_decrypt(MCRYPT_RIJNDAEL_128, User::SECRET, base64_decode($code), MCRYPT_MODE_ECB);
 		
@@ -162,6 +162,8 @@ class User extends Model {
 			
 			", array(":idrecovery"=>$idrecovery
 		));
+
+		
 		
 		
 		if (count($results) === 0) {//se nao encontrou nada
@@ -174,17 +176,18 @@ class User extends Model {
 		}
 	}
     
-    //metodo que diz pro banco que um determinado processo de recuperação ja foi usado
-	/*public static function setForgotUsed($idrecovery){
+    //verifica se o codigo já foi usado
+	public static function setForgotUsed($idrecovery){
 		$sql = new Sql();
 		$sql->query("UPDATE tb_userspasswordsrecoveries SET dtrecovery = NOW() WHERE idrecovery = :idrecovery", array(":idrecovery"=>$idrecovery));
 	}
+	
 	public function setPassword($password){
 		$sql = new sql();
 		$sql->query("UPDATE tb_users SET despassword = :password WHERE iduser = :iduser", array(
             ":password"=>$password,
             ":iduser"=>$this->getiduser()
 		));
-	}*/
+	}
  }
 ?>
