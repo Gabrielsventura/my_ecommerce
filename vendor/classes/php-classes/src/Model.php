@@ -8,7 +8,7 @@ class Model { //para criar os geters e seters
 
 	public function __call($name, $args){//chama os metodos get e set
         
-        //para ver se o metodo chamado foi get ou set
+        //para ver se o metodo chamado foi getiduser ou getdeslogin
 		$method = substr($name, 0, 3);//a partir da posição 0 retorna as 3 primeiras letras
 		$fieldName = substr($name, 3, strlen($name));//conta as letras a parti da 3 poisicao do nome do campo
 

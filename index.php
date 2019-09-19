@@ -244,14 +244,15 @@ $app->get("/admin/forgot/reset", function(){//rota para receber o código
 
 $app->post("/admin/forgot/reset", function(){
 
-	$forgot = User::validForgotDecrypt($_POST["code"]);
+	$forgot = User::validForgotDecrypt($_POST["code"]);//valida o codigo
 
-	User::setForgotUsed($forgot["idrecovery"]);
+	User::setForgotUsed($forgot["idrecovery"]);//ve se o codigo ja foi usado
 
 	$user = new User();
 
 	$user->get((int)$forgot["iduser"]);
 
+    //para criptografar a senha
 	$password = password_hash($_POST["password"],PASSWORD_DEFAULT, [
      "cost"=>12
 
@@ -271,7 +272,10 @@ $app->post("/admin/forgot/reset", function(){
 });
 
 
-//----CATEGORIAS-----
+//------FIM FORGOT--------//
+
+
+//----CATEGORIAS-----//
 
 
 
