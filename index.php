@@ -99,7 +99,9 @@ $app->get("/admin/users/create", function(){
 //----DELETE-----
 
 //deve ficar em cima do codigo do update para ele ler a barra depois do id, se nao, nao le 
-$app->get("/admin/users/:iduser/delete", function($iduser){//rota para deletar usuario
+
+//rota para deletar usuario
+$app->get("/admin/users/:iduser/delete", function($iduser){
 
 	User::verifyLogin();
 
