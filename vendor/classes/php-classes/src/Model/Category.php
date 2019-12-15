@@ -35,6 +35,9 @@ class Category extends Model {
 		));
 
 	$this->setData($result[0]);
+
+
+		Category::updateFile();
 			
 	}
 
@@ -61,7 +64,27 @@ class Category extends Model {
 
 		]);
 
+		Category::updateFile();
+
 		
+	}
+
+	public static function updateFile(){
+
+		$categories = Category::listAll();
+
+		$html = [];
+        
+        //for para carregar as categorias cadastradas
+		foreach ($categories as $row){
+
+			array_push($html, '<li><a href="/categories/'.$row['idcategory'].'"> '.$row['descategory'].'</a></li>');
+
+
+		}
+
+        //para acessar a pagina que lista as categorias dentro da view
+		file_put_contents($_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . "views" . DIRECTORY_SEPARATOR . "categories-menu.html", implode('', $html));
 	}
 
  }
