@@ -161,12 +161,12 @@ class User extends Model {
 			WHERE 
 			a.idrecovery = :idrecovery
 			AND
-			a.dtrecovery IS NULL
-			AND
-			DATE_ADD(a.dtregister, INTERVAL 1 HOUR) >= NOW();
+			a.dtrecovery IS NULL;
 			
 			", array(":idrecovery"=>$idrecovery
 		));
+
+		var_dump($results);
 
 		
 		
