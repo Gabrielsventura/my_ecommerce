@@ -64,8 +64,8 @@ class Product extends Model {
 		$sql = new Sql();
 
         //deleta a categoria 
-		$sql->query("DELETE FROM tb_categories WHERE idproduct = :idproduct", [
-			':idcategory'=>$this->getidcategory()
+		$sql->query("DELETE FROM tb_products WHERE idproduct = :idproduct", [
+			':idproduct'=>$this->getidproduct()
 
 		]);
 
@@ -92,20 +92,25 @@ class Product extends Model {
 		file_put_contents($_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . "views" . DIRECTORY_SEPARATOR . "categories-menu.html", implode('', $html));
 	}
 
-	public function delete(){
-
-		$sql = new Sql();
-
-		$sql->query("DELETE FROM td_products WHERE idproduct = :idproduct ", [
-             ':idproduct'=>$this->getidproduct()
-
-		]);
-	}
 
 	public function  checkPhoto(){
 
-		if (file_exists($_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . ))
-	}
+		if (file_exists($_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . 
+			"res" . DIRECTORY_SEPARATOR . 
+			"site" . DIRECTORY_SEPARATOR . 
+			"img" . DIRECTORY_SEPARATOR . 
+			"products" . DIRECTORY_SEPARATOR . 
+			$this->getidproduct() . ".jpg")) {
+
+			$url =  "/res/site/img/products/" . $this->getidproduct() . ".jpg";
+ 		} else {
+
+ 			$url =  "/res/site/img/product.jpg";
+ 		}
+
+ 		return $this->setdesphoto($url);
+
+ 	}
 
 	public function getValues(){
 
@@ -114,6 +119,44 @@ class Product extends Model {
 		$values = parent::getValues();
 
 		return $values;
+	}
+
+	public function setPhoto($file){
+
+		$extension = explode('.', $file['name']);
+		$extension = end($extension);
+
+		switch ($extension) {
+			
+			case "jpg":
+			case "jpeg":
+			$image = imagecreatefromjpeg($file["tmp_name"]);
+				# code...
+			break;
+
+            case "gif":
+            $image = imagecreatefromgif($file["tmp_name"]);
+            break;
+
+            case "png":
+            $image = imagecreatefrompng($file["tmp_name"]);
+            break;
+
+			
+		}
+
+		$dist = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . 
+			"res" . DIRECTORY_SEPARATOR . 
+			"site" . DIRECTORY_SEPARATOR . 
+			"img" . DIRECTORY_SEPARATOR . 
+			"products" . DIRECTORY_SEPARATOR . 
+			$this->getidproduct() . ".jpg";
+
+		imagejpeg($image, $dist);
+
+		imagedestroy($image);
+
+		$this->checkPhoto();
 	}
 
  }

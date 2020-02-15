@@ -3,7 +3,7 @@
 use \Principal\PageAdmin;
 use \Principal\Model\User;
 use \Principal\Model\Category;
-
+use \Principal\Page;
 
 //----CATEGORIAS-----//
 

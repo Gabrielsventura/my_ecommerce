@@ -4,6 +4,10 @@ use \Principal\PageAdmin;
 use \Principal\Model\User;
 use \Principal\Model\Product;
 
+
+
+//-----READ------
+
 $app->get("/admin/products", function(){
 
 	User::verifyLogin();
@@ -18,6 +22,9 @@ $app->get("/admin/products", function(){
 	]);
 });
 
+
+//-------CREATE---------
+
 $app->get("/admin/products/create", function(){
 
 	User::verifyLogin();
@@ -26,6 +33,7 @@ $app->get("/admin/products/create", function(){
 
 	$page->setTpl("products-create");
 });
+
 
 $app->post("/admin/products/create", function(){
 
@@ -42,6 +50,10 @@ $app->post("/admin/products/create", function(){
 	exit;
 });
 
+
+
+//---------UPDATE------------
+
 $app->get("/admin/products/:idproduct", function($idproduct){
 
 	User::verifyLogin();
@@ -56,6 +68,28 @@ $app->get("/admin/products/:idproduct", function($idproduct){
        'product'=>$product->getValues()
 
 	]);
+});
+
+
+//------ROTA PARA SALVAR A IMAGEM--------
+
+$app->post("/admin/products/:idproduct", function($idproduct){
+
+	User::verifyLogin();
+
+	$product = new Product();
+
+	$product->get((int)$idproduct);
+
+	$product->setData($_POST);
+
+	$product->save();
+	
+	$product->setPhoto($_FILES["file"]);
+
+    header('Location: /admin/products');
+
+	exit;
 });
 
 
