@@ -12,6 +12,8 @@ $app = new Slim();//instancia do slim framework
 
 $app->config('debug', true); //detalha os erros que acontecem
 
+require_once("functions.php");
+
 require_once("site.php");
 
 require_once("admin.php");
