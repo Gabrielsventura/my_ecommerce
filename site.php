@@ -3,6 +3,7 @@
 
 use \Principal\Page;
 use \Principal\Model\Product;
+use \Principal\Model\Category;
 
 //a unica coisa que muda, são as configuração dentro rota
 $app->get('/', function() { //rota principal
@@ -16,5 +17,23 @@ $app->get('/', function() { //rota principal
     ]);//direcionando para o index
 
     });
+
+$app->get("/categories/:idcategory", function($idcategory){
+
+    $category = new Category();
+
+	$category->get((int)$idcategory);
+
+	$page = new Page();
+
+	$page->setTpl("category", [
+
+       'category'=>$category->getValues(),
+       'products'=>Product::checkList($category->getProducts())
+
+
+	]);
+	
+});
 	
 ?>

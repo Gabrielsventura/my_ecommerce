@@ -97,6 +97,8 @@
                                 <h2><a href="/products/<?php echo htmlspecialchars( $value1["desurl"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["desproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a></h2>
                                 
                                 <div class="product-carousel-price">
+
+                                    <!--chamada da função no template -->
                                     <ins>R$<?php echo formatPrice($value1["vlprice"]); ?></ins>
                                 </div> 
                             </div>
